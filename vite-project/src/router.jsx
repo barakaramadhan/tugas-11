@@ -1,48 +1,42 @@
-import { createBrowserRouter, Navigate } from "react-router"; // atau "react-router-dom"
+import { createBrowserRouter, Navigate } from "react-router"; // Jika pakai react-router v7, ini sudah benar. Jika v6, gunakan "react-router-dom"
 
-import GuestLayout from "./tugas-11/layouts/GuestLayout";
+// --- IMPORT YANG AKTIF ---
 
-import AuthLayout from "./tugas-11/layouts/AuthLayout";
+// Guest & Auth Layouts
+import GuestLayout from "./Tugas-11/Layouts/GuestLayout";
+import AuthLayout from "./Tugas-11/Layouts/AuthLayout"; // PERBAIKAN: Menggunakan AuthLayout, bukan GuestLayout
+import HomePage from "./Tugas-11/Pages/HomePage"; // PERBAIKAN: Menggunakan Pages/HomePage, bukan Layouts/GuestLayout
 
-import HomePage from "./tugas-11/pages/HomePage";
-
+// Auth Pages
 import SignInPage from "./Tugas-11/Pages/Auth/SignInPage";
-
 import SignUpPage from "./Tugas-11/Pages/Auth/SignUpPage";
 
-/* --- DIPOSISI KOMENTAR SEMENTARA JIKA ADMIN ERROR --- */
-
-import AdminHome from "./Pages/Admin/AdminHome";
-
-import About from "./Pages/Admin/About";
-
-import SantriList from "./Pages/Admin/Santri/SantriList";
-
-import SantriDetail from "./Pages/Admin/Santri/SantriDetail";
-
-import SantriNilai from "./Pages/Admin/Santri/SantriNilai";
-
-import SantriAbsensi from "./Pages/Admin/Santri/SantriAbsensi";
-
-import AppLayouts from "./layouts/AppLayouts";
-
-import SantriLayout from "./layouts/SantriLayout";
-
-/* */
-
-// ADMIN BARU
-
+// Admin Baru
 import AdminLayout from "./Tugas-11/Layouts/AdminLayout";
+import AdminHome from "./Tugas-11/Pages/Admin/AdminHome"; // PERBAIKAN: Disamakan menjadi Tugas-11/Pages/Admin/...
 
-// USER
+// User
+import UserLayout from "./Tugas-11/Layouts/UserLayout";
+import UserHome from "./Tugas-11/Pages/User/UserHome";
+import MyProfile from "./Tugas-11/Pages/User/MyProfile";
 
-import UserLayout from "./Tugas-11/layouts/UserLayout";
 
-import UserHome from "./Tugas-11/pages/User/UserHome";
+/* 
+   --- IMPORT ADMIN LAMA (DIKOMENTAR AGAR TIDAK MEMBLOKIR BUILD) ---
+   Jika nanti ingin dipakai lagi, hapung tanda komentar dan pastikan path foldernya benar (Tugas-11/Pages/...)
+*/
 
-import MyProfile from "./Tugas-11/pages/User/MyProfile";
+// import About from "./Tugas-11/Pages/Admin/About";
+// import SantriList from "./Tugas-11/Pages/Admin/Santri/SantriList";
+// import SantriDetail from "./Tugas-11/Pages/Admin/Santri/SantriDetail";
+// import SantriNilai from "./Tugas-11/Pages/Admin/Santri/SantriNilai";
+// import SantriAbsensi from "./Tugas-11/Pages/Admin/Santri/SantriAbsensi";
+// import AppLayouts from "./Tugas-11/Layouts/AppLayouts";
+// import SantriLayout from "./Tugas-11/Layouts/SantriLayout";
+
 
 export const router = createBrowserRouter([
+  // ROUTE GUEST (Public)
   {
     path: "/",
     element: <GuestLayout />,
@@ -54,6 +48,7 @@ export const router = createBrowserRouter([
     ],
   },
 
+  // ROUTE AUTH (Login & Register)
   {
     element: <AuthLayout />,
     children: [
@@ -68,35 +63,35 @@ export const router = createBrowserRouter([
     ],
   },
 
-  /* --- ROUTE ADMIN (DIKOMENTARI SEMENTARA) ---
-  {
-    path: "/admin",
-    element: <AppLayouts />,
-    children: [
-      { index: true, element: <AdminHome /> },
-      { path: "about", element: <About /> },
-      {
-        path: "santri",
-        element: <SantriLayout />,
-        children: [
-          { index: true, element: <SantriList /> },
-          {
-            path: "list",
-            children: [
-              { index: true, element: <SantriList /> },
-              { path: ":santri_id", element: <SantriDetail /> },
-            ],
-          },
-          { path: "nilai", element: <SantriNilai /> },
-          { path: "absensi", element: <SantriAbsensi /> },
-        ],
-      },
-    ],
-  },
+  /* 
+    --- ROUTE ADMIN LAMA (DIKOMENTAR SEMENTARA) 
   */
+  // {
+  //   path: "/admin",
+  //   element: <AppLayouts />,
+  //   children: [
+  //     { index: true, element: <AdminHome /> },
+  //     { path: "about", element: <About /> },
+  //     {
+  //       path: "santri",
+  //       element: <SantriLayout />,
+  //       children: [
+  //         { index: true, element: <SantriList /> },
+  //         {
+  //           path: "list",
+  //           children: [
+  //             { index: true, element: <SantriList /> },
+  //             { path: ":santri_id", element: <SantriDetail /> },
+  //           ],
+  //         },
+  //         { path: "nilai", element: <SantriNilai /> },
+  //         { path: "absensi", element: <SantriAbsensi /> },
+  //       ],
+  //     },
+  //   ],
+  // },
 
   // ROUTE ADMIN BARU
-
   {
     path: "/admin",
     element: <AdminLayout />,
@@ -109,7 +104,6 @@ export const router = createBrowserRouter([
   },
 
   // ROUTE USER
-
   {
     path: "/user",
     element: <UserLayout />,
@@ -125,8 +119,7 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // FALLBACK REDIRECT
-
+  // FALLBACK REDIRECT (404)
   {
     path: "*",
     element: <Navigate to="/" replace />,

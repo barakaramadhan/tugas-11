@@ -1,18 +1,18 @@
-import { Outlet, Navigate } from "react-router"; // 1. Tambahkan Navigate
-
+import { Outlet, Navigate } from "react-router";
 import UserNavbar from "../components/user/UserNavbar";
 import UserSidebar from "../components/user/UserSidebar";
-
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { useAuthStore } from "../Pages/Auth/store/useAuthStore"; // 2. Import useAuthStore (sesuaikan path-nya jika beda)
+import { useAuthStore } from "../Pages/Auth/store/useAuthStore";
 
 function UserLayout() {
-  // 3. Ambil data user dari store
   const user = useAuthStore((state) => state.user);
 
-  // 4. Proteksi: Jika BELUM login, langsung lempar ke /sign-in
   if (!user) {
     return <Navigate to="/sign-in" replace />;
+  }
+
+  if (user.role !== "user") {
+    return <Navigate to="/admin" replace />;
   }
 
   return (

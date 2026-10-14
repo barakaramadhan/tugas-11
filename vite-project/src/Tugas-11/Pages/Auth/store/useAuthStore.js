@@ -5,14 +5,14 @@ const MOCK_USER = [
   {
     id: "1",
     email: "admin@test.com",
-    password: "123",
+    password: "admin123",
     name: "BUdi",
     role: "admin",
   },
   {
     id: "2", // 2. Ubah ID agar unik
     email: "user@test.com",
-    password: "123",
+    password: "user123",
     name: "Siti",
     role: "user", // 3. Ubah jadi huruf kecil agar sesuai dengan pengecekan role
   },
